@@ -31,6 +31,6 @@ public class CreateLeaveTypeCommandValidator : AbstractValidator<CreateLeaveType
 
     private async Task<bool> LeaveTypeNameUnique(CreateLeaveTypeCommand command, CancellationToken token)
     {
-        return await _leaveTypeRepository.IsLeaveTypeUnıque(command.Name);
+        return await _leaveTypeRepository.IsLeaveTypeUnique(command.Name);
     }
 }
