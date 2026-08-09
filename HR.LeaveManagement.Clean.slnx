@@ -6,6 +6,7 @@
     <Project Path="HR.LeaveManagement.Domain/HR.LeaveManagement.Domain.csproj" />
   </Folder>
   <Folder Name="/src/Infrastructure/">
+    <Project Path="HR.LeaveManagement.Infrastructure/HR.LeaveManagement.Infrastructure.csproj" Id="6fbea15f-bbda-41ce-abb2-d932f75000fb" />
     <Project Path="HR.LeaveManagement.Persistence/HR.LeaveManagement.Persistence.csproj" Id="121d7d4b-af54-4d55-8ce2-479eb761f569" />
   </Folder>
   <Folder Name="/src/UI/" />
