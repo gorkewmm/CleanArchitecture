@@ -26,6 +26,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwaggerUI(options =>
+    {
+        // AddOpenApi() ile oluşan JSON dökümanının yolunu Swagger UI'a bildiriyoruz
+        options.SwaggerEndpoint("/openapi/v1.json", "HR Leave Management API v1");
+    });
 }
 
 app.UseHttpsRedirection();
