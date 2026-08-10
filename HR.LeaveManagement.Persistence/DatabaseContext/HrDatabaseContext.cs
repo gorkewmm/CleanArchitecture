@@ -29,10 +29,9 @@ namespace HR.LeaveManagement.Persistence.DatabaseContext
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            var entries = ChangeTracker.Entries<BaseEntity>();
+            var entries = ChangeTracker.Entries<BaseEntity>().Where(q => q.State == EntityState.Modified || q.State == EntityState.Added);
 
-            foreach(var entry in base.ChangeTracker.Entries<BaseEntity>()
-                .Where(q => q.State == EntityState.Added || q.State == EntityState.Modified))              
+            foreach(var entry in entries)              
             {
                 entry.Entity.DateModified = DateTime.Now;
 
