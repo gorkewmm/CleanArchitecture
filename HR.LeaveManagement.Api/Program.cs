@@ -17,19 +17,20 @@ builder.Services.AddCors(options =>
         .AllowAnyMethod());
 });
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// Native AddOpenApi() yerine Swashbuckle'ın kendi üretici + UI'ını kullanıyoruz
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(); // OpenAPI 3.0 üretir, Swagger UI ile %100 uyumlu
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();               // /swagger/v1/swagger.json
     app.UseSwaggerUI(options =>
     {
-        // AddOpenApi() ile oluşan JSON dökümanının yolunu Swagger UI'a bildiriyoruz
-        options.SwaggerEndpoint("/openapi/v1.json", "HR Leave Management API v1");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "HR Leave Management API v1");
     });
 }
 
