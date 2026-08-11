@@ -19,6 +19,12 @@ namespace HR.LeaveManagement.Persistence.Repositories
             return await _context.LeaveTypes.AnyAsync(q => q.Name == name) == false;
 
         }
+        public async Task<bool> LeaveTypeDoesExist(int id)
+        {
+            var doesExist = await _context.LeaveTypes.AnyAsync(q => q.Id == id);
+
+            return doesExist;
+        }
 
     }
 }
