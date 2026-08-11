@@ -64,5 +64,10 @@ namespace HR.LeaveManagement.Persistence.Repositories
 
             return leaveAllocation;
         }
+
+        public async Task<bool> LeaveAllocationMustExist(int id)
+        {
+            return await _context.LeaveAllocations.AnyAsync(q => q.Id == id);
+        }
     }
 }

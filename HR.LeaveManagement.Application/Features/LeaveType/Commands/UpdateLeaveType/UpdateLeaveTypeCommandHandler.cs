@@ -36,8 +36,13 @@ namespace HR.LeaveManagement.Application.Features.LeaveType.Commands.UpdateLeave
                 throw new BadRequestException("Invalid Leave type", validationResult);
             }
 
-            // Convert to domain Entity object
-            var leaveType = _mapper.Map<Domain.LeaveType>(request);
+            var leaveType = await _leaveTypeRepository.GetByIdAsync(request.Id);
+            if(leaveType is null)
+            {
+                throw new NotFoundException(nameof(LeaveAllocation), request.Id);
+            }
+
+            _mapper.Map(request, leaveType);
 
             // Add to database
             await _leaveTypeRepository.UpdateAsync(leaveType);
