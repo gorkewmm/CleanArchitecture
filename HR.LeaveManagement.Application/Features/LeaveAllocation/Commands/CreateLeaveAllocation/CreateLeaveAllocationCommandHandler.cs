@@ -27,7 +27,7 @@ namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Commands.Creat
         public async Task<Unit> Handle(CreateLeaveAllocationCommand request, CancellationToken cancellationToken)
         {
             var validator  = new CreateLeaveAllocationCommandValidator(_leaveTypeRepository);
-            var validationResult = validator.Validate(request);
+            var validationResult = await validator.ValidateAsync(request);
 
             if (validationResult.Errors.Any())
             {
