@@ -10,7 +10,8 @@ namespace HR.LeaveManagement.Application.Features.LeaveRequest.Commands.UpdateLe
     public class UpdateLeaveRequestCommandValidator : BaseLeaveRequestValidator<UpdateLeaveRequestCommand>
     {
         private readonly ILeaveRequestRepository _leaveRequestRepository;
-        public UpdateLeaveRequestCommandValidator(ILeaveRequestRepository leaveRequestRepository, ILeaveTypeRepository leaveTypeRepository) : base(leaveTypeRepository)
+        public UpdateLeaveRequestCommandValidator(ILeaveRequestRepository leaveRequestRepository, ILeaveTypeRepository leaveTypeRepository) 
+            : base(leaveTypeRepository)
         {
             _leaveRequestRepository = leaveRequestRepository;
 
