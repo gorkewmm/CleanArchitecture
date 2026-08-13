@@ -12,5 +12,7 @@
     <Project Path="HR.LeaveManagement.Persistence/HR.LeaveManagement.Persistence.csproj" Id="121d7d4b-af54-4d55-8ce2-479eb761f569" />
   </Folder>
   <Folder Name="/src/UI/" />
-  <Folder Name="/test/" />
+  <Folder Name="/test/">
+    <Project Path="HR.LeaveManagement.Application.UnitTests/HR.LeaveManagement.Application.UnitTests.csproj" Id="faf29b43-4e44-4787-b887-e8f293a99ff8" />
+  </Folder>
 </Solution>
