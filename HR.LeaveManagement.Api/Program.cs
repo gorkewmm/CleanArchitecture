@@ -1,3 +1,4 @@
+using HR.LeaveManagement.Api.ExceptionHandlers;
 using HR.LeaveManagement.Api.Middleware;
 using HR.LeaveManagement.Application;
 using HR.LeaveManagement.Infrastructure;
@@ -9,6 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplicationServices()
                 .AddPersistenceServices(builder.Configuration)
                 .AddInfrastructureServices(builder.Configuration);
+
+builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
+builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddControllers();
 
@@ -25,7 +31,7 @@ builder.Services.AddSwaggerGen(); // OpenAPI 3.0 üretir, Swagger UI ile %100 uy
 
 var app = builder.Build();
 
-app.UseMiddleware<ExceptionMiddleware>();
+//app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -36,6 +42,8 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "HR Leave Management API v1");
     });
 }
+
+app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 

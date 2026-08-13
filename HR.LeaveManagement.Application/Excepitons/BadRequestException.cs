@@ -4,7 +4,7 @@ namespace HR.LeaveManagement.Application.Excepitons
 {
     public class BadRequestException : Exception
     {
-        public BadRequestException(string message) : base()
+        public BadRequestException(string message) : base(message)
         {
 
         }
@@ -13,7 +13,7 @@ namespace HR.LeaveManagement.Application.Excepitons
             ValidationErrors = validationResult.ToDictionary();
         }
 
-        public IDictionary<string, string[]> ValidationErrors { get; set; }
+       public IDictionary<string, string[]> ValidationErrors;
     }
 
 }
