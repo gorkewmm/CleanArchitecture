@@ -40,6 +40,13 @@ namespace HR.LeaveManagement.Application.UnitTests.Mocks
 
             mockRepo.Setup(r => r.GetAsync()).ReturnsAsync(leaveTypes);//Bu mock repository'nin GetAsync() metodu çağrıldığında ne olacağını söyleriz.
 
+            mockRepo.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync((int id) =>
+                {
+                    return leaveTypes.Find(q => q.Id == id);
+                });
+                
+
             mockRepo.Setup(r => r.CreateAsync(It.IsAny<LeaveType>()))
                 .Returns((LeaveType leaveType) =>
                 {
@@ -48,7 +55,7 @@ namespace HR.LeaveManagement.Application.UnitTests.Mocks
                 });
 
             return mockRepo;
-            
+
         }
     }
 }
