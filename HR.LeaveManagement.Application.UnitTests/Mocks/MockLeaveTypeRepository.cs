@@ -54,6 +54,13 @@ namespace HR.LeaveManagement.Application.UnitTests.Mocks
                     return Task.CompletedTask;
                 });
 
+            mockRepo.Setup(r => r.IsLeaveTypeUnique(It.IsAny<string>()))
+                .ReturnsAsync((string name) =>
+                {
+                    return leaveTypes.SingleOrDefault(q => q.Name == name) == null;
+                });
+
+
             return mockRepo;
 
         }
