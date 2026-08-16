@@ -33,7 +33,7 @@ namespace HR.LeaveManagement.Application.UnitTests.Features.LeaveTypes.Commands
         }
 
         [Fact]
-        public async void UpdateLeaveTypeTests()
+        public async Task UpdateLeaveTypeTests()
         {
             var handler = new UpdateLeaveTypeCommandHandler(_mapper, _mockRepo.Object, _appLogger.Object);
             var result = await handler.Handle(new UpdateLeaveTypeCommand()

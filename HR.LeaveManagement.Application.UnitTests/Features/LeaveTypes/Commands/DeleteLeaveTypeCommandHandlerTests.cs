@@ -19,7 +19,7 @@ namespace HR.LeaveManagement.Application.UnitTests.Features.LeaveTypes.Commands
         }
 
         [Fact]
-        public async void DeleteLeaveTypeTests()
+        public async Task DeleteLeaveTypeTests()
         {
             var handler = new DeleteLeaveTypeCommandHandler(_mockRepo.Object);
             var result = handler.Handle(new DeleteLeaveTypeCommand()
