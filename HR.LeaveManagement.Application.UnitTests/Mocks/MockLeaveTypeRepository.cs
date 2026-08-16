@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HR.LeaveManagement.Application.UnitTests.Mocks
 {
-    public class MockLeaveTypeRepository
+    public static class MockLeaveTypeRepository
     {
         public static Mock<ILeaveTypeRepository> GetMockLeaveTypeRepository()
         {
@@ -32,6 +32,7 @@ namespace HR.LeaveManagement.Application.UnitTests.Mocks
                     Name = "Test Maternity"
                 },
             };
+
             #region
             //"Sevgili Mock nesnesi, eğer test koşulurken birisi senin GetAsync() metodunu çağırırsa, veritabanına falan gitmeye çalışma; onun yerine al bu benim yukarıda elimle hazırladığım leaveTypes listesini asenkron olarak (ReturnsAsync) onlara ver."
             #endregion
@@ -45,8 +46,8 @@ namespace HR.LeaveManagement.Application.UnitTests.Mocks
                 {
                     return leaveTypes.Find(q => q.Id == id);
                 });
-                
 
+            //For CreateLeaveTypeCommandHandlerTest
             mockRepo.Setup(r => r.CreateAsync(It.IsAny<LeaveType>()))
                 .Returns((LeaveType leaveType) =>
                 {
@@ -61,6 +62,45 @@ namespace HR.LeaveManagement.Application.UnitTests.Mocks
                 });
 
 
+            //For DeleteLeaveTypeCommandHandlerTest
+            mockRepo.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync((int id) =>
+                {
+                    return leaveTypes.Find(q => q.Id == id);
+                });
+
+            mockRepo.Setup(r => r.DeleteAsync(It.IsAny<LeaveType>()))
+                .Returns((LeaveType leaveType) =>
+                {
+                    leaveTypes.Remove(leaveType);
+                    return Task.CompletedTask;
+                });
+
+
+            //For UpdateLeaveTypeCommandHandlerTest
+            mockRepo.Setup(r => r.IsLeaveTypeUnique(It.IsAny<string>()))
+                .ReturnsAsync((string name) =>
+                {
+                    return leaveTypes.Any(q => q.Name == name) == false;
+                });
+
+            mockRepo.Setup(r => r.LeaveTypeDoesExist(It.IsAny<int>()))
+                .ReturnsAsync((int id) =>
+                {
+                    return leaveTypes.Any(q => q.Id == id);
+                });
+
+            mockRepo.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync((int id) =>
+                {
+                    return leaveTypes.Find(q => q.Id == id);
+                });
+
+            mockRepo.Setup(r => r.UpdateAsync(It.IsAny<LeaveType>()))
+                .Returns((LeaveType leaveType) =>
+                {
+                    return Task.CompletedTask;
+                });
             return mockRepo;
 
         }

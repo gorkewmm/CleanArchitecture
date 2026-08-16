@@ -39,12 +39,12 @@ namespace HR.LeaveManagement.Application.Features.LeaveType.Commands.UpdateLeave
             var leaveType = await _leaveTypeRepository.GetByIdAsync(request.Id);
             if(leaveType is null)
             {
-                throw new NotFoundException(nameof(LeaveAllocation), request.Id);
+                throw new NotFoundException(nameof(LeaveType), request.Id);
             }
 
             _mapper.Map(request, leaveType);
 
-            // Add to database
+            // Update in database
             await _leaveTypeRepository.UpdateAsync(leaveType);
 
             // return record id
