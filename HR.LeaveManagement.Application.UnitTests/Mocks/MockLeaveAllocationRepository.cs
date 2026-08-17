@@ -57,8 +57,8 @@ namespace HR.LeaveManagement.Application.UnitTests.Mocks
                     return leaveAllocations.Find(q => q.Id == id);
                 });
 
-            //For CreateLeaveAllocationCommandHandler
 
+            //For CreateLeaveAllocationCommandHandler
             mockRepo.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync((int id) =>
                 {
@@ -71,6 +71,39 @@ namespace HR.LeaveManagement.Application.UnitTests.Mocks
                     leaveAllocations.Add(leaveAllocation);
                     return Task.CompletedTask;
                 });
+
+
+            //For DeleteLeaveAllocationCommandHandler
+            mockRepo.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync((int id) =>
+                {
+                    return leaveAllocations.Find(q => q.Id == id);
+                });
+
+            mockRepo.Setup(r => r.DeleteAsync(It.IsAny<LeaveAllocation>()))
+                .Returns((LeaveAllocation leaveAllocation) =>
+                {
+                    leaveAllocations.Remove(leaveAllocation);
+                    return Task.CompletedTask;
+                });
+
+            //For UpdateLeaveAllocationCommandHandler
+            mockRepo.Setup(r => r.LeaveAllocationMustExist(It.IsAny<int>()))
+                .ReturnsAsync((int id) =>
+                {
+                    return leaveAllocations.Any(q => q.Id == id);
+                });
+
+            mockRepo.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
+               .ReturnsAsync((int id) =>
+               {
+                   return leaveAllocations.Find(q => q.Id == id);
+               });
+
+            mockRepo.Setup(r => r.UpdateAsync(It.IsAny<LeaveAllocation>()))
+                .Returns(Task.CompletedTask);
+
+
 
             return mockRepo;
         }
