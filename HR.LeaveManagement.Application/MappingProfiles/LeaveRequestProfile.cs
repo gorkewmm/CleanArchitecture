@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using HR.LeaveManagement.Application.Features.LeaveRequest.Queries.GetLeaveRequestDetail;
 using HR.LeaveManagement.Application.Features.LeaveRequest.Queries.GetLeaveRequestList;
+using HR.LeaveManagement.Application.Features.LeaveType.Queries.GetAllLeaveTypes;
 using HR.LeaveManagement.Domain;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,10 @@ namespace HR.LeaveManagement.Application.MappingProfiles
     {
         public LeaveRequestProfile()
         {
-            CreateMap<LeaveRequestListDto, LeaveRequest>();
+            CreateMap<LeaveRequestListDto, LeaveRequest>().ReverseMap();
+
+            CreateMap<LeaveRequest, LeaveRequestDetailsDto>();
+            CreateMap<LeaveType, LeaveTypeDto>().ReverseMap();
         }
     }
 }
