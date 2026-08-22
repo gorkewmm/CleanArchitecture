@@ -95,10 +95,11 @@ namespace HR.LeaveManagement.Identity.Services
 
             var appUser = new ApplicationUser()
             {
-                FirstName= request.FirstName,
+                FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
                 UserName = request.Username,
+                EmailConfirmed = true
             };
 
             var result = await _userManager.CreateAsync(appUser, request.Password);
@@ -107,6 +108,7 @@ namespace HR.LeaveManagement.Identity.Services
                 throw new BadRequestException($"Failed");
             }
 
+            await _userManager.AddToRoleAsync(appUser, "employee");
 
             return new RegistrationResponse()
             {
